@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#70c5ce">
+  <meta name="description" content="Учебная браузерная версия Flappy Bird на HTML, CSS и JavaScript.">
+  <title>Flappy Bird — учебная версия</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Flappy Bird</h1>
+      <p class="subtitle">Не задевай трубы</p>
+    </header>
+
+    <section class="game-card" aria-label="Игра Flappy Bird">
+      <div class="game-toolbar">
+        <span class="control-hint">Нажимай <kbd>ПРОБЕЛ</kbd> или <kbd>↑</kbd> чтобы взлетать</span>
+        <button id="soundToggle" class="sound-button" type="button" aria-pressed="true" aria-label="Выключить звук">
+          <span id="soundIcon" aria-hidden="true">♫</span>
+          <span id="soundLabel">Звук включён</span>
+        </button>
+      </div>
+      <div class="game-frame" id="gameFrame">
+        <canvas id="gameCanvas" width="360" height="640" tabindex="0" role="application"></canvas>
+      </div>
+      <p class="tip">Совет: быстрые тапы помогают точнее контролировать высоту</p>
+    </section>
+    <noscript>Для игры необходимо включить JavaScript в настройках браузера.</noscript>
+  </main>
+  <script src="game.js"></script>
+</body>
+
+</html>
