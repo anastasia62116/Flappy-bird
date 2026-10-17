@@ -9,33 +9,54 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { min-width: 280px; min-height: 100%; }
+html {
+  min-width: 280px;
+  min-height: 100%;
+}
 
 body {
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
   margin: 0;
-  display: grid;
-  place-items: center;
-  padding: max(14px, env(safe-area-inset-top)) 16px max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  padding:
+    max(14px, env(safe-area-inset-top))
+    16px
+    max(14px, env(safe-area-inset-bottom));
+  overflow: hidden;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(112, 197, 206, .20), transparent 48%),
     #edf7f5;
 }
 
-button, canvas { -webkit-tap-highlight-color: transparent; }
+button,
+canvas {
+  -webkit-tap-highlight-color: transparent;
+}
 
+/* Страница занимает всю доступную высоту */
 .page {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
 }
 
-.page-header { text-align: center; }
+.page-header {
+  flex-shrink: 0;
+  text-align: center;
+}
+
 h1 {
   margin: 0;
   color: #173d46;
@@ -43,17 +64,32 @@ h1 {
   line-height: 1.05;
   letter-spacing: -.045em;
 }
-.subtitle { margin: 8px 0 0; color: #607e83; font-size: 13px; }
 
+.subtitle {
+  margin: 8px 0 0;
+  color: #607e83;
+  font-size: 13px;
+}
+
+/* Карточка растягивается на всё свободное место */
 .game-card {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(39, 94, 99, .10);
   border-radius: 22px;
   background: rgba(255, 255, 255, .80);
-  box-shadow: 0 20px 60px rgba(33, 82, 85, .12), 0 3px 10px rgba(33, 82, 85, .05);
+  box-shadow:
+    0 20px 60px rgba(33, 82, 85, .12),
+    0 3px 10px rgba(33, 82, 85, .05);
 }
 
 .game-toolbar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,16 +99,21 @@ h1 {
   font-size: 10px;
 }
 
+/* Игровое поле заполняет карточку под панелью управления */
 .game-frame {
-  width: min(360px, calc(100vw - 54px), calc((100dvh - 205px) * .5625));
-  min-width: 240px;
-  aspect-ratio: 9 / 16;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
   overflow: hidden;
   border-radius: 13px;
   background: #70c5ce;
   touch-action: manipulation;
 }
 
+/* Canvas растягивается вместе с игровым полем */
 canvas {
   display: block;
   width: 100%;
@@ -82,7 +123,13 @@ canvas {
   touch-action: manipulation;
 }
 
-.control-hint { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.control-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
 kbd {
   padding: 4px 5px;
   border: 1px solid #d8e8e6;
@@ -93,6 +140,7 @@ kbd {
   font-size: 9px;
   font-weight: 800;
 }
+
 .sound-button {
   display: inline-flex;
   align-items: center;
@@ -106,24 +154,90 @@ kbd {
   font-size: 10px;
   cursor: pointer;
 }
-.sound-button:hover { background: #eaf5f3; }
-.sound-button:focus-visible { outline: 2px solid #39828b; outline-offset: 2px; }
-#soundIcon { font-size: 14px; line-height: 1; }
-.tip { margin: 9px 0 1px; color: #799397; text-align: center; font-size: 11px; line-height: 1.4; }
-noscript { color: #8d2f2f; font-size: 13px; text-align: center; }
 
-@media (max-height: 720px) {
-  .page { gap: 8px; }
-  h1 { font-size: 27px; }
-  .subtitle { margin-top: 4px; font-size: 11px; }
-  .game-frame { width: min(320px, calc(100vw - 48px), calc((100dvh - 180px) * .5625)); }
-  .tip { margin-top: 7px; font-size: 10px; }
+.sound-button:hover {
+  background: #eaf5f3;
 }
 
+.sound-button:focus-visible {
+  outline: 2px solid #39828b;
+  outline-offset: 2px;
+}
+
+#soundIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tip {
+  flex-shrink: 0;
+  margin: 9px 0 1px;
+  color: #799397;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+noscript {
+  color: #8d2f2f;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Низкие экраны: освобождаем больше места для игры */
+@media (max-height: 720px) {
+  body {
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+
+  .page {
+    gap: 8px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    font-size: 11px;
+  }
+
+  .game-card {
+    padding: 7px;
+  }
+
+  .tip {
+    margin-top: 5px;
+    font-size: 10px;
+  }
+}
+
+/* Узкие экраны */
 @media (max-width: 360px) {
-  body { padding-right: 8px; padding-left: 8px; }
-  .game-card { padding: 7px; border-radius: 17px; }
-  .game-toolbar { gap: 4px; font-size: 9px; }
-  .control-hint { gap: 3px; }
-  .sound-button { gap: 3px; padding: 5px 3px; font-size: 9px; }
+  body {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .game-card {
+    padding: 7px;
+    border-radius: 17px;
+  }
+
+  .game-toolbar {
+    gap: 4px;
+    font-size: 9px;
+  }
+
+  .control-hint {
+    gap: 3px;
+  }
+
+  .sound-button {
+    gap: 3px;
+    padding: 5px 3px;
+    font-size: 9px;
+  }
 }
