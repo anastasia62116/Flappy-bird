@@ -97,6 +97,7 @@
     // Используем единый масштаб: объекты не деформируются.
     // Дополнительное пространство расширяет игровой мир.
     const scale = Math.min(
+      1,
       rect.width / BASE_W,
       rect.height / BASE_H
     );
@@ -116,9 +117,9 @@
       pipes.forEach(pipe => {
         const fraction = oldMax > oldMin
           ? Math.max(
-              0,
-              Math.min(1, (pipe.gapY - oldMin) / (oldMax - oldMin))
-            )
+            0,
+            Math.min(1, (pipe.gapY - oldMin) / (oldMax - oldMin))
+          )
           : 0.5;
 
         pipe.gapY = newMin +
