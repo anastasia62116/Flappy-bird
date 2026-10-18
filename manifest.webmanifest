@@ -1,0 +1,29 @@
+{
+  "id": "./",
+  "name": "Flappy Bird",
+  "short_name": "Flappy Bird",
+  "description": "Небольшая браузерная игра Flappy Bird.",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#70c5ce",
+  "background_color": "#edf7f5",
+  "categories": ["games"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
